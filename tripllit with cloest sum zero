@@ -1,0 +1,35 @@
+def find_closest_triplet(arr, target):
+    # Sort the array
+    arr.sort()
+    
+    # Initialize the closest sum as a large number
+    closest_sum = float('inf')
+    
+    # Loop through each element of the array
+    for i in range(len(arr) - 2):
+        # Set the left and right pointers
+        left, right = i + 1, len(arr) - 1
+        
+        while left < right:
+            # Calculate the current sum of the triplet
+            current_sum = arr[i] + arr[left] + arr[right]
+            
+            # If the current sum is closer to the target, update closest_sum
+            if abs(current_sum - target) < abs(closest_sum - target):
+                closest_sum = current_sum
+            
+            # Move the pointers based on comparison with the target
+            if current_sum < target:
+                left += 1
+            elif current_sum > target:
+                right -= 1
+            else:
+                # If the current_sum equals the target, return immediately
+                return current_sum
+    
+    return closest_sum
+
+# Example usage
+arr = [-1, 2, 1, -4]
+target = 1
+ print("Closest triplet sum:", find_closest_triplet(arr, target))
